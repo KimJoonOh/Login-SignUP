@@ -41,6 +41,29 @@ class LoginController: UIViewController {
     
     private let dividerView = DividerView()
     
+    private let googleLoginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "btn_google_light_pressed_ios").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setTitle("   Log in with Google", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(handleGoogleLogin), for: .touchUpInside)
+        return button
+    }()
+    
+    private let dontHaveAccountButton: UIButton = {
+        let button = UIButton(type: .system)
+        
+        let atts: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor(white: 1, alpha: 0.8), .font: UIFont.systemFont(ofSize: 15)]
+        let attributedTitle = NSMutableAttributedString(string: "Don't have an account? ", attributes: atts)
+        
+        let boldAtts: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor(white: 1, alpha: 0.8), .font: UIFont.boldSystemFont(ofSize: 15)]
+        attributedTitle.append(NSAttributedString(string: "Sign Up", attributes: boldAtts))
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +79,14 @@ class LoginController: UIViewController {
     
     @objc func showForgotPassword() {
         print("DEBUG: Handle sohw forgot password")
+    }
+    
+    @objc func handleGoogleLogin() {
+        print("DEBUG: Google Login")
+    }
+    
+    @objc func handleSignUp() {
+        print("DEBUG: SignUp")
     }
     
     func configureUI() {
@@ -86,5 +117,20 @@ class LoginController: UIViewController {
                      right: view.rightAnchor, paddingTop: 32, paddingLeft: 32,
                      paddingRight: 32)
         
+        let secondStack = UIStackView(arrangedSubviews: [forgotPasswordButton,
+                                                         dividerView,
+                                                         googleLoginButton])
+        
+        secondStack.axis = .vertical
+        secondStack.spacing = 30
+        
+        view.addSubview(secondStack)
+        secondStack.anchor(top : stack.bottomAnchor, left : view.leftAnchor,
+                     right: view.rightAnchor, paddingTop: 32, paddingLeft: 32,
+                     paddingRight: 32)
+        
+        view.addSubview(dontHaveAccountButton)
+        dontHaveAccountButton.centerX(inView: view)
+        dontHaveAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor)
     }
 }
