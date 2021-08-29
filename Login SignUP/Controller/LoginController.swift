@@ -39,6 +39,9 @@ class LoginController: UIViewController {
         return button
     }()
     
+    private let dividerView = DividerView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,7 +76,8 @@ class LoginController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [emailTextField,
                                                    passwordTextField,
                                                    loginButton,
-                                                   forgotPasswordButton])
+                                                   forgotPasswordButton,
+                                                   dividerView])
         stack.axis = .vertical
         stack.spacing = 20
         
@@ -82,8 +86,5 @@ class LoginController: UIViewController {
                      right: view.rightAnchor, paddingTop: 32, paddingLeft: 32,
                      paddingRight: 32)
         
-        view.addSubview(forgotPasswordButton)
-        forgotPasswordButton.centerX(inView: view)
-        forgotPasswordButton.anchor(top: stack.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 32, paddingLeft: 32, paddingRight: 32)
     }
 }
